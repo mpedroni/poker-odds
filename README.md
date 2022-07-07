@@ -1,4 +1,4 @@
-# poker-odds-calculator
+# poker-odds
 A calculator of poker hands odds. Implemented using TDD for studies-purposes
 
 ## About the project
