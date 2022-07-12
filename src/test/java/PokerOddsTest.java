@@ -48,14 +48,14 @@ public class PokerOddsTest {
     void TestPlayerCanHaveUpTwoCards() throws Exception {
         Player player = new Player(aceOfDiamonds, aceOfSpades);
 
-        assertTrue(player.has(aceOfDiamonds));
-        assertTrue(player.has(aceOfSpades));
+        assertTrue(player.cards.has(aceOfDiamonds));
+        assertTrue(player.cards.has(aceOfSpades));
     }
 
     @Test
     void TestPlayerCanHaveNoCards() throws Exception {
         Player player = new Player();
-        assertTrue(player.cards.isEmpty());
+        assertTrue(player.cards.empty());
     }
 
     @Test
@@ -68,11 +68,11 @@ public class PokerOddsTest {
     void TestTableCanHaveUpToFiveCards() throws Exception {
         Table table = new Table(aceOfSpades, aceOfHearts, aceOfDiamonds, aceOfClubs, kingOfSpades);
 
-        assertTrue(table.has(aceOfSpades));
-        assertTrue(table.has(aceOfHearts));
-        assertTrue(table.has(aceOfDiamonds));
-        assertTrue(table.has(aceOfClubs));
-        assertTrue(table.has(kingOfSpades));
+        assertTrue(table.cards.has(aceOfSpades));
+        assertTrue(table.cards.has(aceOfHearts));
+        assertTrue(table.cards.has(aceOfDiamonds));
+        assertTrue(table.cards.has(aceOfClubs));
+        assertTrue(table.cards.has(kingOfSpades));
     }
 
     @Test
@@ -90,6 +90,11 @@ public class PokerOddsTest {
     @Test
     void TestTableCanHaveZeroCards() throws Exception {
         Table table = new Table();
-        assertTrue(table.cards.isEmpty());
+        assertTrue(table.cards.empty());
+    }
+
+    @Test
+    void TestHandCreateWithPlayerAndDeckCards() {
+
     }
 }
