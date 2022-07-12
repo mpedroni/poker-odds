@@ -94,7 +94,8 @@ public class PokerOddsTest {
     }
 
     @Test
-    void TestHandCreateWithPlayerAndDeckCards() {
-
+    void TestHandOddsForPair() {
+        HandRankingOdds odds = new HandRankingOdds(aceOfDiamonds, aceOfSpades);
+        assertEquals(odds.pair(), 1);
     }
 }
