@@ -16,6 +16,10 @@ public class Player {
         System.out.println(this.cards);
     }
 
+    public Player() {
+        this.cards = new HashSet<>();
+    }
+
     public boolean has(Card card) {
         return cards.contains(card);
     }

@@ -36,16 +36,16 @@ public class PokerOddsTest {
 
     @Test
     void TestPlayerCreateWithZeroCards() {
+        Player player = new Player();
+        assertTrue(player.cards.isEmpty());
+    }
+
+    @Test
+    void TestPlayerCreateWithMoreThanCardsLimit() {
         Card aceOfDiamonds = new Card(CardNumber.ACE, CardSuit.DIAMONDS);
         Card aceOfSpades = new Card(CardNumber.ACE, CardSuit.SPADES);
         Card aceOfHearts = new Card(CardNumber.ACE, CardSuit.HEARTS);
         Exception exception = assertThrows(Exception.class, () -> new Player(aceOfDiamonds, aceOfSpades, aceOfHearts));
         assertEquals(exception.getMessage(), "Players can have up to 2 cards");
-    }
-
-    @Test
-    void TestPlayerCreateWithMoreThanCardsLimit() throws Exception {
-        Player player = new Player();
-        assertTrue(player.cards.isEmpty());
     }
 }
