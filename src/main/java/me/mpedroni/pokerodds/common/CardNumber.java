@@ -1,4 +1,4 @@
-package me.mpedroni.pokerodds;
+package me.mpedroni.pokerodds.common;
 
 public enum CardNumber {
     TWO,

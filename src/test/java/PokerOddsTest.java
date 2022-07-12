@@ -1,4 +1,6 @@
-import me.mpedroni.pokerodds.*;
+import me.mpedroni.pokerodds.common.*;
+import me.mpedroni.pokerodds.holdem.HandRankingOdds;
+import me.mpedroni.pokerodds.holdem.HoldEmHand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,27 +48,21 @@ public class PokerOddsTest {
 
     @Test
     void TestPlayerCanHaveUpTwoCards() throws Exception {
-        Player player = new Player(aceOfDiamonds, aceOfSpades);
+        Player player = new Player(new HoldEmHand(aceOfDiamonds, aceOfSpades));
 
         assertTrue(player.cards.has(aceOfDiamonds));
         assertTrue(player.cards.has(aceOfSpades));
     }
 
     @Test
-    void TestPlayerCanHaveNoCards() throws Exception {
-        Player player = new Player();
-        assertTrue(player.cards.empty());
-    }
-
-    @Test
     void TestPlayerCannotHaveMoreThanTwoCards() {
-        Exception exception = assertThrows(Exception.class, () -> new Player(aceOfDiamonds, aceOfSpades, aceOfHearts));
+        Exception exception = assertThrows(Exception.class, () -> new Player(new HoldEmHand(aceOfDiamonds, aceOfSpades, aceOfHearts)));
         assertEquals(exception.getMessage(), "Players can have up to 2 cards");
     }
 
     @Test
     void TestTableCanHaveUpToFiveCards() throws Exception {
-        Table table = new Table(aceOfSpades, aceOfHearts, aceOfDiamonds, aceOfClubs, kingOfSpades);
+        Table table = new Table(new HoldEmHand(aceOfSpades, aceOfHearts, aceOfDiamonds, aceOfClubs, kingOfSpades));
 
         assertTrue(table.cards.has(aceOfSpades));
         assertTrue(table.cards.has(aceOfHearts));
@@ -83,19 +79,13 @@ public class PokerOddsTest {
         Card aceOfClubs = new Card(CardNumber.ACE, CardSuit.CLUBS);
         Card kingOfSpades = new Card(CardNumber.KING, CardSuit.SPADES);
 
-        Exception exception = assertThrows(Exception.class, () -> new Table(aceOfSpades, aceOfHearts, aceOfDiamonds, aceOfClubs, kingOfSpades, kingOfDiamonds));
+        Exception exception = assertThrows(Exception.class, () -> new Table(new HoldEmHand(aceOfSpades, aceOfHearts, aceOfDiamonds, aceOfClubs, kingOfSpades, kingOfDiamonds)));
         assertEquals(exception.getMessage(), "Tables can have up to 5 cards");
     }
 
     @Test
-    void TestTableCanHaveZeroCards() throws Exception {
-        Table table = new Table();
-        assertTrue(table.cards.empty());
-    }
-
-    @Test
     void TestHandOddsForPair() {
-        HandRankingOdds odds = new HandRankingOdds(aceOfDiamonds, aceOfSpades);
+        HandRankingOdds odds = new HandRankingOdds(new HoldEmHand(aceOfDiamonds, aceOfSpades));
         assertEquals(odds.pair(), 1);
     }
 }
