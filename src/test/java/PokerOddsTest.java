@@ -1,19 +1,41 @@
 import me.mpedroni.pokerodds.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PokerOddsTest {
-    @Test
-    void TestCardWithNumberAndSuit() {
-        Card card = new Card(CardNumber.ACE, CardSuit.SPADES);
-        assertEquals(card.number, CardNumber.ACE);
-        assertEquals(card.suit, CardSuit.SPADES);
+    Card aceOfSpades;
+    Card aceOfDiamonds;
+    Card aceOfHearts;
+    Card aceOfClubs;
+    Card kingOfSpades;
+    Card kingOfDiamonds;
+
+    @BeforeEach
+    void setUp() {
+        aceOfSpades = new Card(CardNumber.ACE, CardSuit.SPADES);
+        aceOfDiamonds = new Card(CardNumber.ACE, CardSuit.DIAMONDS);
+        aceOfHearts = new Card(CardNumber.ACE, CardSuit.HEARTS);
+        aceOfClubs = new Card(CardNumber.ACE, CardSuit.CLUBS);
+        kingOfSpades = new Card(CardNumber.KING, CardSuit.SPADES);
+        kingOfDiamonds = new Card(CardNumber.KING, CardSuit.DIAMONDS);
     }
+
+    @AfterEach
+    void tearDown() {
+        aceOfSpades = null;
+        aceOfDiamonds = null;
+        aceOfHearts = null;
+        aceOfClubs = null;
+        kingOfSpades = null;
+        kingOfDiamonds = null;
+    }
+
 
     @Test
     void TestCardEquality() {
-        Card aceOfSpades = new Card(CardNumber.ACE, CardSuit.SPADES);
         Card anotherAceOfSpades = new Card(CardNumber.ACE, CardSuit.SPADES);
 
         assertEquals(aceOfSpades, aceOfSpades);
@@ -24,9 +46,8 @@ public class PokerOddsTest {
 
     @Test
     void TestPlayerCanHaveUpTwoCards() throws Exception {
-        Card aceOfDiamonds = new Card(CardNumber.ACE, CardSuit.DIAMONDS);
-        Card aceOfSpades = new Card(CardNumber.ACE, CardSuit.SPADES);
         Player player = new Player(aceOfDiamonds, aceOfSpades);
+
         assertTrue(player.has(aceOfDiamonds));
         assertTrue(player.has(aceOfSpades));
     }
@@ -39,21 +60,12 @@ public class PokerOddsTest {
 
     @Test
     void TestPlayerCannotHaveMoreThanTwoCards() {
-        Card aceOfDiamonds = new Card(CardNumber.ACE, CardSuit.DIAMONDS);
-        Card aceOfSpades = new Card(CardNumber.ACE, CardSuit.SPADES);
-        Card aceOfHearts = new Card(CardNumber.ACE, CardSuit.HEARTS);
         Exception exception = assertThrows(Exception.class, () -> new Player(aceOfDiamonds, aceOfSpades, aceOfHearts));
         assertEquals(exception.getMessage(), "Players can have up to 2 cards");
     }
 
     @Test
     void TestTableCanHaveUpToFiveCards() throws Exception {
-        Card aceOfSpades = new Card(CardNumber.ACE, CardSuit.SPADES);
-        Card aceOfHearts = new Card(CardNumber.ACE, CardSuit.HEARTS);
-        Card aceOfDiamonds = new Card(CardNumber.ACE, CardSuit.DIAMONDS);
-        Card aceOfClubs = new Card(CardNumber.ACE, CardSuit.CLUBS);
-        Card kingOfSpades = new Card(CardNumber.KING, CardSuit.SPADES);
-
         Table table = new Table(aceOfSpades, aceOfHearts, aceOfDiamonds, aceOfClubs, kingOfSpades);
 
         assertTrue(table.has(aceOfSpades));
@@ -70,7 +82,6 @@ public class PokerOddsTest {
         Card aceOfDiamonds = new Card(CardNumber.ACE, CardSuit.DIAMONDS);
         Card aceOfClubs = new Card(CardNumber.ACE, CardSuit.CLUBS);
         Card kingOfSpades = new Card(CardNumber.KING, CardSuit.SPADES);
-        Card kingOfDiamonds = new Card(CardNumber.KING, CardSuit.DIAMONDS);
 
         Exception exception = assertThrows(Exception.class, () -> new Table(aceOfSpades, aceOfHearts, aceOfDiamonds, aceOfClubs, kingOfSpades, kingOfDiamonds));
         assertEquals(exception.getMessage(), "Tables can have up to 5 cards");
